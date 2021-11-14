@@ -3,12 +3,15 @@ import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import BrightnessLowIcon from '@mui/icons-material/BrightnessLow';
 
-import SliderMMS from './component/slider/sliderMuiMakeStyles/SliderMuiMakeStyles';
+import Slider from './component/slider/sliderMuiMakeStyles/SliderMuiMakeStyles';
+
+function valuetext(value) {
+  return `${value}°C`;
+}
 
 export default function App() {
   const [value, setValue] = useState(25);
@@ -17,10 +20,16 @@ export default function App() {
     setValue(newValue);
   };
 
-  const [value2, setValue2] = useState(25);
+  const [value2, setValue2] = useState(50);
 
   const handleSliderChange2 = (event, newValue) => {
     setValue2(newValue);
+  };
+
+  const [value3, setValue3] = React.useState([20, 37]);
+
+  const handleSliderChange3 = (event, newValue) => {
+    setValue3(newValue);
   };
 
   return (
@@ -32,7 +41,7 @@ export default function App() {
         spacing={2}
       >
         <Brightness2Icon sx={{ color: value >= 75 ? '#ffc107' : '#B8DDFB' }} />
-        <SliderMMS
+        <Slider
           value={typeof value === 'number' ? value : 0}
           onChange={handleSliderChange}
           sx={{
@@ -51,13 +60,14 @@ export default function App() {
         />
       </Stack>
       <Stack
-        direction="row"
+        direction="column"
         justifyContent="center"
         alignItems="center"
         spacing={2}
       >
-        <Brightness2Icon sx={{ color: value2 >= 75 ? '#ffc107' : '#B8DDFB' }} />
-        <SliderMMS
+        Disabled
+        <Slider
+          disabled
           value={typeof value2 === 'number' ? value2 : 0}
           onChange={handleSliderChange2}
           sx={{
@@ -70,16 +80,40 @@ export default function App() {
             },
           }}
         />
-
-        <BrightnessLowIcon
-          sx={{ color: value2 >= 75 ? '#ffc107' : '#B8DDFB' }}
+      </Stack>
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        marks
+        <Slider
+          aria-label="Small steps"
+          defaultValue={0.00000005}
+          getAriaValueText={valuetext}
+          step={0.00000001}
+          marks
+          min={-0.00000005}
+          max={0.0000001}
+          valueLabelDisplay="auto"
         />
       </Stack>
-      {/*     <Box
-        sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
       >
-        <Typography>{value}</Typography>
-      </Box> */}
+        range slider
+        <Slider
+          getAriaLabel={() => 'Temperature range'}
+          value={value3}
+          onChange={handleSliderChange3}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+        />
+      </Stack>
     </Box>
   );
 }

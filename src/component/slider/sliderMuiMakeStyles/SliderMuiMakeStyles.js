@@ -38,6 +38,16 @@ const SliderMuiMakeStyles = styled((props) => <Slider {...props} />, {
   '&:hover > *': {
     opacity: 1,
   },
+  '&.Mui-disabled': {
+    '& .MuiSlider-track': {
+      '&:before': {
+        backgroundColor: 'gray',
+      },
+    },
+    '& .MuiSlider-rail': {
+      backgroundColor: 'lightGray',
+    },
+  },
 }));
 
 export default function SliderVivo(props) {
