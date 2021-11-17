@@ -1,23 +1,20 @@
 import * as React from 'react';
-
 import styled from '@mui/material/styles/styled';
 import Slider from '@mui/material/Slider';
 
-const SliderMuiMakeStyles = styled((props) => <Slider {...props} />, {
-  shouldForwardProp: (prop) => prop !== 'scale',
-})(({ theme, scale }) => ({
+const SliderStyled = styled(Slider)(({ theme }) => ({
   height: 10,
   '& .MuiSlider-rail': {
     backgroundColor: '#B8DDFB',
     width: 'calc(100% + 10px)',
     transform: 'translateX(-5px)',
     top: 'initial',
-    opacity: 0.5,
+    opacity: 0.8,
   },
   '& .MuiSlider-track': {
+    backgroundColor: 'transparent',
     boxSizing: 'border-box',
     border: 'none',
-    backgroundColor: 'transparent',
     '&:before': {
       content: '""',
       position: 'absolute',
@@ -26,30 +23,30 @@ const SliderMuiMakeStyles = styled((props) => <Slider {...props} />, {
       height: 10,
       borderRadius: 8,
       backgroundColor: theme.palette.primary.main,
-      opacity: 0.5,
+      opacity: 0.8,
       transform: 'translateX(-5px)',
     },
   },
   '& .MuiSlider-thumb': {
-    width: 6,
     height: 6,
-    color: 'white',
+    width: 6,
+    backgroundColor: 'white',
   },
-  '&:hover > *': {
-    opacity: 1,
+  '&:hover ': {
+    '& .MuiSlider-track:before, .MuiSlider-rail': {
+      opacity: 1,
+    },
   },
   '&.Mui-disabled': {
-    '& .MuiSlider-track': {
-      '&:before': {
-        backgroundColor: 'gray',
-      },
-    },
     '& .MuiSlider-rail': {
       backgroundColor: 'lightGray',
+    },
+    '& .MuiSlider-track:before': {
+      backgroundColor: 'gray',
     },
   },
 }));
 
-export default function SliderVivo(props) {
-  return <SliderMuiMakeStyles {...props} />;
+export default function SliderSmallThumb(props) {
+  return <SliderStyled {...props} />;
 }
